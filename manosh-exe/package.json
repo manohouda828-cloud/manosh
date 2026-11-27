@@ -1,0 +1,46 @@
+{
+  "name": "manosh-exe",
+  "productName": "manosh",
+  "version": "1.0.0",
+  "description": "manosh.exe - a tiny pixel-art human who lives on your Windows desktop.",
+  "main": "src/main/main.js",
+  "author": "manosh",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "sprites": "node tools/generate-sprites.js",
+    "test": "node tools/selftest.js",
+    "pack": "electron-builder --win --x64 --dir",
+    "dist": "npm test && electron-builder --win nsis --x64"
+  },
+  "devDependencies": {
+    "electron": "~33.4.11",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.manosh.desktoppet",
+    "productName": "manosh",
+    "executableName": "manosh",
+    "copyright": "manosh.exe",
+    "artifactName": "Manosh-Setup.${ext}",
+    "directories": { "output": "dist", "buildResources": "build" },
+    "files": ["src/**/*", "assets/**/*", "package.json"],
+    "asar": true,
+    "compression": "maximum",
+    "win": {
+      "target": [{ "target": "nsis", "arch": ["x64"] }],
+      "icon": "build/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "manosh",
+      "runAfterFinish": true,
+      "deleteAppDataOnUninstall": true
+    }
+  }
+}
